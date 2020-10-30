@@ -8,16 +8,21 @@
 <div id="app">
 <!--    这里id是app，表示vm绑定的是app底下的元素-->
 <!--    底下演示的是for循环-->
+
+<!--    if判断语句-->
 <h1 v-if="type==='A'">A</h1>
 <h1 v-else-if="type==='B'">B</h1>
 <h1 v-else-if="type==='C'">C</h1>
 <h1 v-else>C</h1>
+
+
 <h1 v-if="message=='zsp'"> 你鹏哥</h1>
+
 <h2 v-for="item in items">
     {{item.msg}}
 </h2>
 <h2 v-for="(item,index) in items">
-        {{item.msg}}--{{index}}
+{{item.msg}} --{{index}}
 </h2>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
