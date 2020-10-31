@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <zsp>
+        <zsp-title slot="zsp-title" v-bind:title="title"></zsp-title>
+
+
+<!--                使用slot绑定了组件里面的内容分发中的组件zsp-item-->
+<!--                然后在把索引利用v-bin传回组件zsp-item中-->
+<!--                组件里面使用.$emit再传回视图层-->
+<!--                然后调用vue里面的方法获取到视图层得到的index进行删除-->
+        <zsp-item slot="zsp-item" v-for="(item,index) in items" v-bind:item="item"
+                  v-bind:index="index" v-on:remove="removeItems(index)" >
+
+        </zsp-item>
+    </zsp>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script>
+    Vue.component("zsp",{
+
+        template:'<div>\
+        <slot name="zsp-title"></slot>\
+        <ul>\
+        <slot name="zsp-item"></slot>\
+        </ul>\
+        </div>'
+    });
+    Vue.component("zsp-title",{
+        props: ['title'],
+        template: '<div >{{title}}</div>'
+    });
+    Vue.component("zsp-item",{
+        props:['item','index'],
+        template:'<li>{{item}}  <button @click="remove">删除</button></li>',
+        methods:{
+            remove:function(index){
+                // 将从props里面获取到的索引返回给视图层
+                this.$emit('remove',index)
+
+            }
+        }
+    })
+    var vm =new Vue({
+        el:'#app',
+        data:{
+            title:"朱少鹏会的语言",
+            items:["c++","java","python"]
+        },
+        methods: {
+            removeItems(index){
+                this.items.splice(index,1)
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
