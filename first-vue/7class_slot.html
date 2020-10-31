@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <zsp>
+        <zsp-title slot="zsp-title" v-bind:title="title"></zsp-title>
+        <zsp-items v-for="item in items" slot="zsp-items" v-bind:item="item"></zsp-items>
+    </zsp>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script>
+    Vue.component("zsp",{
+        props:['sp'],
+        template: '<div>\
+                  <slot name="zsp-title"></slot>\
+                  <ul>\
+                  <slot name="zsp-items"></slot>\
+                  \
+                  </ul>\
+                  \
+                  </div>'
+
+    });
+    Vue.component("zsp-title",{
+        props:['title'],
+        template: '<div>{{title}}</div>'
+
+    });
+    Vue.component("zsp-items",{
+        props:['item'],
+        template: '<div>{{item}}</div>'
+    });
+
+    var vm =new Vue({
+       el:'#app',
+       data:{
+           items:['java','c','vue'],
+           title:"朱少鹏会的语言"
+       }
+    });
+</script>
+</body>
+</html>
